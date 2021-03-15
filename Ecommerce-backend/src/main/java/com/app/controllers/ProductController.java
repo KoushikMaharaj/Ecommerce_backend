@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/product")
 public class ProductController {
 
-	public ProductController() {
-		System.out.println("in ctor of " + getClass().getName());
-	}
+	
 
 }
