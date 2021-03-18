@@ -39,7 +39,7 @@ public class SubCategoryController {
 	}
 	
 	@GetMapping
-	public List<SubCategoryDTO> getAllSubCategories() {
+	public List<SubCategory> getAllSubCategories() {
 		return subCtgService.getAllSubCategories();
 	}
 }

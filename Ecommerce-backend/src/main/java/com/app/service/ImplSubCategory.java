@@ -28,8 +28,8 @@ public class ImplSubCategory implements ISubCategoryService {
 	}
 
 	@Override
-	public List<SubCategoryDTO> getAllSubCategories() {
-		return subCtgRepo.getAllSubCategories();
+	public List<SubCategory> getAllSubCategories() {
+		return subCtgRepo.findAll();
 	}
 
 }

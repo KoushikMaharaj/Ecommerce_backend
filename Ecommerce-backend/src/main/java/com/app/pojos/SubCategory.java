@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "subcategories")
 public class SubCategory extends BaseEntity {
@@ -22,6 +24,7 @@ public class SubCategory extends BaseEntity {
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category ctg;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "subCtg", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Product> products = new ArrayList<>();
 
