@@ -27,7 +27,7 @@ public class CategoryController {
 		System.out.println("in ctor of " + getClass().getName());
 	}
 
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<?> addCategory(@RequestBody Category category) {
 		System.out.println("in addCategory " + category);
 		try {

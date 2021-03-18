@@ -29,7 +29,7 @@ public class SubCategoryController {
 
 	@PostMapping
 	public ResponseEntity<?> addSubCategory(@RequestBody SubCategory subCategory) {
-		System.out.println("in addCategory " + subCategory);
+		System.out.println("in addSubCategory " + subCategory);
 		try {
 			return new ResponseEntity<>(subCtgService.addSubCategory(subCategory), HttpStatus.OK);
 		} catch (RuntimeException e) {
