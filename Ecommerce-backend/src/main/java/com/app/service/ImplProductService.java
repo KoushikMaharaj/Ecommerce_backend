@@ -1,5 +1,7 @@
 package com.app.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,11 @@ public class ImplProductService implements IProductService {
 		SubCategory subCtg = subCtgRepo.findBySubCtgName(prod.getSubCtg().getSubCtgName());
 		subCtg.addProduct(prod);
 		return prodRepo.save(prod);
+	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		return prodRepo.findAll();
 	}
 
 }

@@ -38,7 +38,7 @@ public class SubCategoryController {
 	}
 	
 	@GetMapping
-	public List<SubCategory> getAllSubCategories() {
+	public List<String> getAllSubCategories() {
 		return subCtgService.getAllSubCategories();
 	}
 }

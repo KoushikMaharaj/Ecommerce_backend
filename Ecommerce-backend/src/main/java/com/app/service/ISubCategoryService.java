@@ -7,5 +7,5 @@ import com.app.pojos.SubCategory;
 public interface ISubCategoryService {
 	SubCategory addSubCategory(SubCategory subCtg);
 	
-	List<SubCategory> getAllSubCategories();
+	List<String> getAllSubCategories();
 }
