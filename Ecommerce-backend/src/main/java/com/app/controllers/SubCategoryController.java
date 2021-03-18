@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.SubCategoryDTO;
 import com.app.pojos.SubCategory;
 import com.app.service.ISubCategoryService;
 
@@ -38,7 +39,7 @@ public class SubCategoryController {
 	}
 	
 	@GetMapping
-	public List<String> getAllSubCategories() {
+	public List<SubCategoryDTO> getAllSubCategories() {
 		return subCtgService.getAllSubCategories();
 	}
 }

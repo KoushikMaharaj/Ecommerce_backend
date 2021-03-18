@@ -22,7 +22,7 @@ public class ImplProductService implements IProductService {
 
 	@Override
 	public Product addProduct(Product prod) {
-		SubCategory subCtg = subCtgRepo.findBySubCtgName(prod.getSubCtg().getSubCtgName());
+	SubCategory subCtg = subCtgRepo.findBySubCtgName(prod.getSubCtg().getSubCtgName());
 		subCtg.addProduct(prod);
 		return prodRepo.save(prod);
 	}

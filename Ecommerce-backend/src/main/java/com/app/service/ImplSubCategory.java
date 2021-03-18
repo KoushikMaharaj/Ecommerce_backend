@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.CategoryRepository;
 import com.app.dao.SubCategoryRepository;
+import com.app.dto.SubCategoryDTO;
 import com.app.pojos.Category;
 import com.app.pojos.SubCategory;
 
@@ -27,7 +28,7 @@ public class ImplSubCategory implements ISubCategoryService {
 	}
 
 	@Override
-	public List<String> getAllSubCategories() {
+	public List<SubCategoryDTO> getAllSubCategories() {
 		return subCtgRepo.getAllSubCategories();
 	}
 
