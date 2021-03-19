@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "subcategories")
@@ -52,11 +53,13 @@ public class SubCategory extends BaseEntity {
 	public void setCtg(Category ctg) {
 		this.ctg = ctg;
 	}
-
+	
+	@JsonIgnore
 	public List<Product> getProducts() {
 		return products;
 	}
-
+	
+	@JsonProperty
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
