@@ -20,6 +20,7 @@ public class Cart extends BaseEntity {
 
 	@OneToOne
 	@JoinColumn(name = "customer_id", nullable = false)
+	@JsonIgnore
 	private User custCart;
 
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -30,10 +31,12 @@ public class Cart extends BaseEntity {
 		System.out.println("in ctor of " + getClass().getName());
 	}
 
+	@JsonIgnore
 	public User getCustCart() {
 		return custCart;
 	}
 
+	@JsonProperty
 	public void setCustCart(User custCart) {
 		this.custCart = custCart;
 	}
