@@ -37,9 +37,9 @@ public class CartController {
 		System.out.println("in ctor of " + getClass().getName());
 	}
 
-	@PostMapping("/addtocart")
-	public Cart addProductToCart(@RequestParam int id, @RequestParam int pid) {
-		User user = userService.getUserById(id);
+	@PostMapping("/addtocart/{cid}/{pid}")
+	public Cart addProductToCart(@PathVariable int cid, @PathVariable int pid) {
+		User user = userService.getUserById(cid);
 		System.out.println(user);
 		Product prod = prodService.getProductDetail(pid);
 		System.out.println(prod);
@@ -54,9 +54,9 @@ public class CartController {
 		return cartService.addProductToCart(crt);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<?> showCart(@PathVariable int id) {
-		User user = userService.getUserById(id);
+	@GetMapping("/{cid}")
+	public ResponseEntity<?> showCart(@PathVariable int cid) {
+		User user = userService.getUserById(cid);
 		System.out.println("showCart " + user.getCart().getId());
 		try {
 			return new ResponseEntity<>(cartService.showCart(user), HttpStatus.OK);
