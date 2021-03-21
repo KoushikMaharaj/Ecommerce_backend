@@ -45,6 +45,8 @@ public class Product extends BaseEntity {
 	@Lob
 	@Column(name = "product_image")
 	private byte[] prodImage;
+	
+	private String imageFileName;
 
 	@ManyToOne
 	@JoinColumn(name = "subcategory_id", nullable = false)
@@ -145,6 +147,14 @@ public class Product extends BaseEntity {
 	 * 
 	 * public void setDetails(List<OrderDetail> details) { this.details = details; }
 	 */
+
+	public String getImageFileName() {
+		return imageFileName;
+	}
+
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
+	}
 
 	public int getNumberInStock() {
 		return numberInStock;

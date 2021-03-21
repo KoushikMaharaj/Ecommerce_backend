@@ -1,11 +1,10 @@
 package com.app.controllers;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.app.message.ResponseFile;
 import com.app.pojos.Product;
 import com.app.service.IProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,6 +46,7 @@ public class ProductController {
 			byte[] image = prodImage.getBytes();
 			System.out.println(image);
 			prod.setProdImage(image);
+			prod.setImageFileName(prodImage.getOriginalFilename());
 			return new ResponseEntity<>(prodService.addProduct(prod), HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -67,6 +69,35 @@ public class ProductController {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+	
+	@GetMapping("/images")
+	public ResponseEntity<List<ResponseFile>> getListFiles() {
+		System.out.println("in list files");
+		List<ResponseFile> files = prodService.getAllProducts().stream().map(p -> {
+			
+			String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath() // Prepares a URL from the
+																							// host, port, scheme, and
+					// context path of the given HttpServletRequest.eg : http://localhost:8080/
+					.path("/product/images/")// apends the resource name eg : http://localhost:8080/files
+					.path(p.getId().toString()) // appends file id(resource id) http://localhost:8080/files/1
+					.toUriString();
+			System.out.println("url " + fileDownloadUrl);
+
+			return new ResponseFile(p.getImageFileName(), fileDownloadUrl);
+		}).collect(Collectors.toList());
+
+		return ResponseEntity.status(HttpStatus.OK).body(files);
+	}
+	
+	@GetMapping("/images/{id}")
+	public ResponseEntity<byte[]> getFile(@PathVariable Integer id) {
+		System.out.println("in get file");
+		Product p = prodService.getProductDetail(id);
+
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + p.getImageFileName() + "\"")
+				.body(p.getProdImage());
 	}
 
 }
