@@ -42,4 +42,15 @@ public class ImplUserService implements IUserService {
 		return dto;
 	}
 
+	@Override
+	public User getUserById(Integer id) {
+		return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not Found"));
+	}
+
+	@Override
+	public void deleteAdmin(Integer id) {
+		userRepo.deleteById(id);
+		
+	}
+
 }

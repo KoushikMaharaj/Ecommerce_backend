@@ -3,28 +3,26 @@ package com.app.pojos;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "carts")
 public class Cart extends BaseEntity {
+
 	@OneToOne
 	@JoinColumn(name = "customer_id", nullable = false)
 	private User custCart;
 
-	@Column(name = "product_quantity")
-	private int qty;
-
-	@Column(name="total_price")
-	private double totalPrice;
-
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "cart_products", joinColumns = @JoinColumn(name = "cart_id"), inverseJoinColumns = @JoinColumn(name = "product_ids"))
 	private List<Product> products = new ArrayList<>();
 
@@ -40,28 +38,22 @@ public class Cart extends BaseEntity {
 		this.custCart = custCart;
 	}
 
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public int getQty() {
-		return qty;
-	}
-
-	public void setQty(int qty) {
-		this.qty = qty;
-	}
-
 	public List<Product> getProducts() {
 		return products;
 	}
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	public void addProduct(Product prod) {
+		products.add(prod);
+		// prod.getCarts().add(this);
+	}
+
+	public void removeProduct(Product prod) {
+		products.remove(prod);
+		// prod.getCarts().remove(this);
 	}
 
 }

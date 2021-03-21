@@ -11,5 +11,9 @@ public interface IUserService {
 
 	List<User> getAllAdmins(Role role);
 
-	UserDTO loginUser(String email,String password);
+	UserDTO loginUser(String email, String password);
+
+	User getUserById(Integer id);
+
+	void deleteAdmin(Integer id);
 }

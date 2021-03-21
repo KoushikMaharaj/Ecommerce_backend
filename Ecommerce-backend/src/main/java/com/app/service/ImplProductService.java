@@ -22,7 +22,7 @@ public class ImplProductService implements IProductService {
 
 	@Override
 	public Product addProduct(Product prod) {
-	SubCategory subCtg = subCtgRepo.findBySubCtgName(prod.getSubCtg().getSubCtgName());
+		SubCategory subCtg = subCtgRepo.findBySubCtgName(prod.getSubCtg().getSubCtgName());
 		subCtg.addProduct(prod);
 		return prodRepo.save(prod);
 	}
@@ -30,6 +30,11 @@ public class ImplProductService implements IProductService {
 	@Override
 	public List<Product> getAllProducts() {
 		return prodRepo.findAll();
+	}
+
+	@Override
+	public Product getProductDetail(Integer id) {
+		return prodRepo.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
 	}
 
 }

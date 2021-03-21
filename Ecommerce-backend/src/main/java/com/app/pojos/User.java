@@ -1,20 +1,18 @@
 package com.app.pojos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "users")
@@ -40,11 +38,14 @@ public class User extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "custCart", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Cart cart;
-
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	private List<Order> orders = new ArrayList<>();
+	/*
+	 * @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval =
+	 * true, fetch = FetchType.EAGER) private List<Order> orders = new
+	 * ArrayList<>();
+	 */
 
 	public User() {
 		System.out.println("in ctor of " + getClass().getName());
@@ -109,21 +110,21 @@ public class User extends BaseEntity {
 		this.role = role;
 	}
 
+	@JsonIgnore
 	public Cart getCart() {
 		return cart;
 	}
 
+	@JsonProperty
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
+	/*
+	 * public List<Order> getOrders() { return orders; }
+	 * 
+	 * public void setOrders(List<Order> orders) { this.orders = orders; }
+	 */
 
 	@Override
 	public String toString() {
@@ -150,7 +151,7 @@ public class User extends BaseEntity {
 	// helper method to link orders
 	public void linkOrders(Order o) {
 		// cust---->orders
-		orders.add(o);
+		// orders.add(o);
 		// orders-->cust
 		o.setCustomer(this);
 	}
@@ -158,7 +159,7 @@ public class User extends BaseEntity {
 	// helper method to link orders
 	public void unlinkOrders(Order o) {
 		// cust-X--->orders
-		orders.remove(o);
+		// orders.remove(o);
 		// orders-X->cust
 		o.setCustomer(null);
 	}

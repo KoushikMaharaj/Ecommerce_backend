@@ -17,6 +17,9 @@ import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "products")
 @CrossOrigin
@@ -47,8 +50,12 @@ public class Product extends BaseEntity {
 	@JoinColumn(name = "subcategory_id", nullable = false)
 	private SubCategory subCtg;
 
-	@ManyToMany(mappedBy = "products", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Cart> carts = new ArrayList<>();
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL) private
+	 * List<Cart> carts = new ArrayList<>();
+	 */
 
 	/*
 	 * @OneToMany(mappedBy = "product") private List<OrderDetail> details = new
@@ -127,13 +134,11 @@ public class Product extends BaseEntity {
 		this.prodImage = prodImage;
 	}
 
-	public List<Cart> getCarts() {
-		return carts;
-	}
-
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
-	}
+	/*
+	 * @JsonIgnore public List<Cart> getCarts() { return carts; }
+	 * 
+	 * @JsonProperty public void setCarts(List<Cart> carts) { this.carts = carts; }
+	 */
 
 	/*
 	 * public List<OrderDetail> getDetails() { return details; }
