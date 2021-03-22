@@ -82,7 +82,7 @@ public class ProductController {
 					.path("/product/images/")// apends the resource name eg : http://localhost:8080/files
 					.path(p.getId().toString()) // appends file id(resource id) http://localhost:8080/files/1
 					.toUriString();
-			System.out.println("url " + fileDownloadUrl);
+			//System.out.println("url " + fileDownloadUrl);
 
 			return new ResponseFile(p.getImageFileName(), fileDownloadUrl);
 		}).collect(Collectors.toList());

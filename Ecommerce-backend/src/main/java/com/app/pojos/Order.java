@@ -18,8 +18,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Order extends BaseEntity {
 
 	@DateTimeFormat(pattern = "yyyy-dd-mm")
-	private LocalDate orderDate;
-	
+	private LocalDate orderDate = LocalDate.now();
+
 	@ElementCollection
 	private List<OrderDetail> details = new ArrayList<>();
 
