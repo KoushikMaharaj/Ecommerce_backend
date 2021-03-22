@@ -21,10 +21,10 @@ public class OrderDetail {
 		System.out.println("in ctor of " + getClass().getName());
 	}
 
-	public OrderDetail(int qty, double totalPrice) {
+	public OrderDetail(int qty, double price) {
 		super();
 		this.qty = qty;
-		this.totalPrice = totalPrice;
+		this.totalPrice = price * qty;
 	}
 
 	public int getQty() {
