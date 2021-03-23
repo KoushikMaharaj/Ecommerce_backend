@@ -33,9 +33,6 @@ public class Product extends BaseEntity {
 	@Column(name = "product_warrenty", length = 10)
 	private String prodWarrenty;
 
-	@Column(name = "product_stock_status")
-	private boolean prodStockStatus = true;
-
 	@Column(name = "number_in_stock")
 	private int numberInStock;
 
@@ -45,7 +42,7 @@ public class Product extends BaseEntity {
 	@Lob
 	@Column(name = "product_image")
 	private byte[] prodImage;
-	
+
 	private String imageFileName;
 
 	@ManyToOne
@@ -68,13 +65,13 @@ public class Product extends BaseEntity {
 		System.out.println("in ctor of " + getClass().getName());
 	}
 
-	public Product(String prodName, String prodDesc, String prodWarrenty, boolean prodStockStatus, int numberInStock,
-			double price, byte[] prodImage) {
+	public Product(String prodName, String prodDesc, String prodWarrenty, int numberInStock, double price,
+			byte[] prodImage) {
 		super();
 		this.prodName = prodName;
 		this.prodDesc = prodDesc;
 		this.prodWarrenty = prodWarrenty;
-		this.prodStockStatus = prodStockStatus;
+
 		this.numberInStock = numberInStock;
 		this.price = price;
 		this.prodImage = prodImage;
@@ -102,14 +99,6 @@ public class Product extends BaseEntity {
 
 	public void setProdWarrenty(String prodWarrenty) {
 		this.prodWarrenty = prodWarrenty;
-	}
-
-	public boolean isProdStockStatus() {
-		return prodStockStatus;
-	}
-
-	public void setProdStockStatus(boolean prodStockStatus) {
-		this.prodStockStatus = prodStockStatus;
 	}
 
 	public double getPrice() {
@@ -167,8 +156,8 @@ public class Product extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Product [Id=" + getId() + ", prodName=" + prodName + ", prodDesc=" + prodDesc + ", prodWarrenty="
-				+ prodWarrenty + ", prodStockStatus=" + prodStockStatus + ", numberInStock=" + numberInStock
-				+ ", price=" + price + ", prodImage=" + Arrays.toString(prodImage) + "]";
+				+ prodWarrenty + ", numberInStock=" + numberInStock + ", price=" + price + ",    imageFileName="
+				+ imageFileName + "]";
 	}
 
 }

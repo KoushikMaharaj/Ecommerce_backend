@@ -37,4 +37,15 @@ public class ImplProductService implements IProductService {
 		return prodRepo.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
 	}
 
+	@Override
+	public void updateProduct(int qty, int pid) {
+		prodRepo.updateProduct(qty, pid);
+
+	}
+
+	@Override
+	public List<Product> getBySubCategory(SubCategory subCtg) {
+		return prodRepo.findBySubCtg(subCtg);
+	}
+
 }
