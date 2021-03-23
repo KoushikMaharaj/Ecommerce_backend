@@ -24,4 +24,9 @@ public class ImplCartService implements ICartService {
 		return cartRepo.findByCustCart(user);
 	}
 
+	@Override
+	public Cart getById(int id) {
+				return cartRepo.findById(id).orElseThrow(()->new RuntimeException("Cart Not Found"));
+	}
+
 }

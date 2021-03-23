@@ -5,6 +5,8 @@ import com.app.pojos.User;
 
 public interface ICartService {
 	Cart addProductToCart(Cart cart);
-	
+
 	Cart showCart(User user);
+
+	Cart getById(int id);
 }

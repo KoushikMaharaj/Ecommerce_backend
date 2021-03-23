@@ -7,4 +7,5 @@ import com.app.pojos.User;
 
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 	Cart findByCustCart(User user);
+
 }
