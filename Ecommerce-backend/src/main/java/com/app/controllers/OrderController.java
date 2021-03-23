@@ -68,7 +68,6 @@ public class OrderController {
 	public ResponseEntity<?> placeCartOrder(@PathVariable int id, Order order) {
 		System.out.println("in placeCartOrder cart id " + id);
 		Cart cart = cartService.getById(id);
-		System.out.println(cart.getProducts());
 		User customer = cart.getCustCart();
 		List<Product> products = cart.getProducts();
 		products.forEach((product) -> {
@@ -79,6 +78,13 @@ public class OrderController {
 		});
 		order.setOrderAddress(customer.getUserAddr());
 		customer.linkOrders(order);
+
+		for (int i = 0; i < products.size(); i++) {
+			cart.removeProduct(products.get(i));
+		}
+		//customer.removeCart(cart);
+
+		cartService.deleteCart(cart);
 		try {
 			return new ResponseEntity<>(orderService.placeOrder(order), HttpStatus.OK);
 		} catch (RuntimeException e) {

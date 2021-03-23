@@ -1,11 +1,14 @@
 package com.app.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.CartRepository;
 import com.app.pojos.Cart;
+import com.app.pojos.Product;
 import com.app.pojos.User;
 
 @Service
@@ -26,7 +29,15 @@ public class ImplCartService implements ICartService {
 
 	@Override
 	public Cart getById(int id) {
-				return cartRepo.findById(id).orElseThrow(()->new RuntimeException("Cart Not Found"));
+		return cartRepo.findById(id).orElseThrow(() -> new RuntimeException("Cart Not Found"));
+	}
+
+	@Override
+	public void deleteCart(Cart c) {
+		
+		System.out.println("in delete " + c);
+		cartRepo.delete(c);
+
 	}
 
 }

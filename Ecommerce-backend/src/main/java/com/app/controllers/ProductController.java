@@ -104,8 +104,8 @@ public class ProductController {
 				.body(p.getProdImage());
 	}
 
-	@GetMapping("/category")
-	public ResponseEntity<?> getProductsByCategory(@RequestParam String ctgName) {
+	@GetMapping("/category/{ctgName}")
+	public ResponseEntity<?> getProductsByCategory(@PathVariable String ctgName) {
 		List<SubCategory> subcategories = subCtgService.getSubCategoryByCategory(ctgName);
 		List<Product> products = new ArrayList<>();
 		subcategories.forEach((subCtg) -> {
@@ -118,8 +118,8 @@ public class ProductController {
 		}
 	}
 
-	@GetMapping("/subcategory")
-	public ResponseEntity<?> getProductsBySubCategory(@RequestParam String subCtgName) {
+	@GetMapping("/subcategory/{subCtgName}")
+	public ResponseEntity<?> getProductsBySubCategory(@PathVariable String subCtgName) {
 		SubCategory subCtg = subCtgService.getSubCategoryByName(subCtgName);
 		/*
 		 * List<Product> products = new ArrayList<>(); products.addAll();
