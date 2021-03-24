@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -20,7 +21,7 @@ public class Order extends BaseEntity {
 	@DateTimeFormat(pattern = "yyyy-dd-mm")
 	private LocalDate orderDate = LocalDate.now();
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	private List<OrderDetail> details = new ArrayList<>();
 
 	@ManyToOne
@@ -56,6 +57,14 @@ public class Order extends BaseEntity {
 
 	public void setCustomer(User customer) {
 		this.customer = customer;
+	}
+
+	public LocalDate getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(LocalDate orderDate) {
+		this.orderDate = orderDate;
 	}
 
 }
