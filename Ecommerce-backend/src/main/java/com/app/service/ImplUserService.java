@@ -50,7 +50,7 @@ public class ImplUserService implements IUserService {
 	@Override
 	public void deleteAdmin(Integer id) {
 		userRepo.deleteById(id);
-		
+
 	}
 
 }

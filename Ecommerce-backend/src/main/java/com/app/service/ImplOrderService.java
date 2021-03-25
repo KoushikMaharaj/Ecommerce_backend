@@ -1,9 +1,11 @@
 package com.app.service;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +54,10 @@ public class ImplOrderService implements IOrderService {
 
 	@Override
 	public List<Order> getAllOrders() {
-		return orderRepo.findAll();
+		List<Order> allOrders = orderRepo.findAll();
+		allOrders.sort((o1, o2) -> o2.getOrderDate().compareTo(o1.getOrderDate()));
+		allOrders.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
+		return allOrders;
 	}
 
 	@Override
@@ -77,6 +82,11 @@ public class ImplOrderService implements IOrderService {
 		}
 		cartService.deleteCart(cart);
 		return orderRepo.save(order);
+	}
+
+	@Override
+	public Order getOrderByOrderId(int orderId) {
+		return orderRepo.findById(orderId).orElseThrow(() -> new RuntimeException("Cart not found"));
 	}
 
 }

@@ -30,11 +30,21 @@ public class OrderController {
 		System.out.println("in ctor " + getClass().getName());
 	}
 
+	@GetMapping
+	public ResponseEntity<?> getAllOrders() {
+		try {
+			return new ResponseEntity<>(orderService.getAllOrders(), HttpStatus.OK);
+		} catch (RuntimeException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@PostMapping("/{cid}/{pid}/{qty}")
-	public ResponseEntity<?> placeOrder(@PathVariable int cid, @PathVariable int pid,@PathVariable int qty, Order order) {
+	public ResponseEntity<?> placeOrder(@PathVariable int cid, @PathVariable int pid, @PathVariable int qty,
+			Order order) {
 
 		try {
-			return new ResponseEntity<>(orderService.placeOrder(cid, pid,qty, order), HttpStatus.OK);
+			return new ResponseEntity<>(orderService.placeOrder(cid, pid, qty, order), HttpStatus.OK);
 		} catch (RuntimeException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -62,10 +72,11 @@ public class OrderController {
 
 	}
 
-	@GetMapping
-	public ResponseEntity<?> getAllOrders() {
+	@GetMapping("/orderbyid/{orderId}")
+	public ResponseEntity<?> getOrderByOrderId(@PathVariable int orderId) {
+		System.out.println("in getOrderByOrderId " + orderId);
 		try {
-			return new ResponseEntity<>(orderService.getAllOrders(), HttpStatus.OK);
+			return new ResponseEntity<>(orderService.getOrderByOrderId(orderId), HttpStatus.OK);
 		} catch (RuntimeException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
