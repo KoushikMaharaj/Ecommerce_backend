@@ -12,5 +12,5 @@ public interface ICartService {
 	
 	void deleteCart(Cart c);
 	
-	
+	Cart removeProductFromCart(int cartId,int pid);
 }

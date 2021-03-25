@@ -20,7 +20,7 @@ public class ImplCartService implements ICartService {
 	private IUserService userService;
 
 	@Override
-	public Cart addProductToCart(int cid,int pid) {
+	public Cart addProductToCart(int cid, int pid) {
 		User user = userService.getUserById(cid);
 		System.out.println(user);
 		Product prod = prodService.getProductDetail(pid);
@@ -50,6 +50,14 @@ public class ImplCartService implements ICartService {
 	public void deleteCart(Cart c) {
 		System.out.println("in delete " + c);
 		cartRepo.delete(c);
+	}
+
+	@Override
+	public Cart removeProductFromCart(int cartId, int pid) {
+		Product product = prodService.getProductDetail(pid);
+		Cart cart = cartRepo.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
+		cart.getProducts().remove(product);
+		return cartRepo.save(cart);
 	}
 
 }

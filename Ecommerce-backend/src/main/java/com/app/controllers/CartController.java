@@ -25,15 +25,14 @@ public class CartController {
 
 	@Autowired
 	private ICartService cartService;
-	
+
 	public CartController() {
 		System.out.println("in ctor of " + getClass().getName());
 	}
 
 	@PostMapping("/addtocart/{cid}/{pid}")
 	public Cart addProductToCart(@PathVariable int cid, @PathVariable int pid) {
-		
-		return cartService.addProductToCart(cid,pid);
+		return cartService.addProductToCart(cid, pid);
 	}
 
 	@GetMapping("/{cid}")
@@ -42,6 +41,16 @@ public class CartController {
 		System.out.println("showCart " + user.getCart().getId());
 		try {
 			return new ResponseEntity<>(cartService.showCart(user), HttpStatus.OK);
+		} catch (RuntimeException e) {
+			return new ResponseEntity<>("Cart Not Found", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/removeproduct/{cartId}/{pid}")
+	public ResponseEntity<?> removeProductFromCart(@PathVariable int cartId, @PathVariable int pid) {
+		System.out.println("in removeProductFromCart cartID: " + cartId + " pid: " + pid);
+		try {
+			return new ResponseEntity<>(cartService.removeProductFromCart(cartId, pid), HttpStatus.OK);
 		} catch (RuntimeException e) {
 			return new ResponseEntity<>("Cart Not Found", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
