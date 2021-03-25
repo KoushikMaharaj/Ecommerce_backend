@@ -2,6 +2,7 @@ package com.app.service;
 
 import java.util.List;
 
+import com.app.dto.ProductUpdateRequestDTO;
 import com.app.pojos.Product;
 import com.app.pojos.SubCategory;
 
@@ -15,4 +16,6 @@ public interface IProductService {
 	void updateProduct(int qty, int pid);
 	
 	List<Product> getBySubCategory(SubCategory subCtg);
+	
+	Product updateProduct(ProductUpdateRequestDTO prod);
 }

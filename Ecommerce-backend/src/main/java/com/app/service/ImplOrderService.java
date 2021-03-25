@@ -30,24 +30,24 @@ public class ImplOrderService implements IOrderService {
 	private ICartService cartService;
 
 	@Override
-	public Order placeOrder(int cid, int pid, Order order) {
-		System.out.println("in placeOrder cid: " + cid + " pid: " + pid);
+	public Order placeOrder(int cid, int pid, int qty, Order order) {
+		System.out.println("in placeOrder cid: " + cid + " pid: " + pid + " qty: " + qty);
 		User customer = userService.getUserById(cid);
 		Product prod = prodService.getProductDetail(pid);
 		System.out.println("product: " + prod.getProdName());
-		OrderDetail detail = new OrderDetail(1, prod.getPrice());
+		OrderDetail detail = new OrderDetail(qty, prod.getPrice());
 		detail.setProduct(prod);
 		order.getDetails().add(detail);
 		order.setOrderAddress(customer.getUserAddr());
 		customer.linkOrders(order);
-		prodService.updateProduct(1, pid);
+		prodService.updateProduct(qty, pid);
 		System.out.println(order);
 		return orderRepo.save(order);
 	}
 
 	@Override
 	public List<Order> getOrdersByCustomer(User customer) {
-		return orderRepo.findByCustomerOrderByOrderDate(customer);
+		return orderRepo.findByCustomerOrderByIdDesc(customer);
 	}
 
 	@Override
@@ -72,11 +72,9 @@ public class ImplOrderService implements IOrderService {
 
 		Iterator<Product> itr = products.iterator();
 		while (itr.hasNext()) {
-
 			itr.next();
 			itr.remove();
 		}
-
 		cartService.deleteCart(cart);
 		return orderRepo.save(order);
 	}

@@ -8,5 +8,5 @@ import com.app.pojos.Order;
 import com.app.pojos.User;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-	List<Order> findByCustomerOrderByOrderDate(User customer);
+	List<Order> findByCustomerOrderByIdDesc(User customer);
 }

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.ProductRepository;
 import com.app.dao.SubCategoryRepository;
+import com.app.dto.ProductUpdateRequestDTO;
 import com.app.pojos.Product;
 import com.app.pojos.SubCategory;
 
@@ -46,6 +47,14 @@ public class ImplProductService implements IProductService {
 	@Override
 	public List<Product> getBySubCategory(SubCategory subCtg) {
 		return prodRepo.findBySubCtg(subCtg);
+	}
+
+	@Override
+	public Product updateProduct(ProductUpdateRequestDTO prod) {
+		Product product = prodRepo.findById(prod.getId()).orElseThrow(()->new RuntimeException("Product Not found"));
+		product.setPrice(prod.getPrice());
+		product.setNumberInStock(prod.getNumberInStock());
+		return prodRepo.save(product);
 	}
 
 }

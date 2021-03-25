@@ -48,10 +48,8 @@ public class ImplCartService implements ICartService {
 
 	@Override
 	public void deleteCart(Cart c) {
-
 		System.out.println("in delete " + c);
 		cartRepo.delete(c);
-
 	}
 
 }
