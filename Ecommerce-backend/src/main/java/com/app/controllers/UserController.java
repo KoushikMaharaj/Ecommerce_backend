@@ -51,5 +51,15 @@ public class UserController {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@PutMapping("/update/address")
+	public ResponseEntity<?> updateUserAddress(@RequestBody UserDTO user) {
+		System.out.println("in updateUser " + user);
+		try {
+			return new ResponseEntity<>(userService.updateUserAddress(user), HttpStatus.OK);
+		} catch (RuntimeException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }

@@ -65,4 +65,14 @@ public class ImplUserService implements IUserService {
 		return dto;
 	}
 
+	@Override
+	public UserDTO updateUserAddress(UserDTO cust) {
+		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new RuntimeException("User not Found"));
+		customer.setUserAddr(cust.getUserAddr());
+		User persistentCust = userRepo.save(customer);
+		UserDTO dto = new UserDTO();
+		BeanUtils.copyProperties(persistentCust, dto, "userPassword");
+		return dto;
+	}
+
 }
