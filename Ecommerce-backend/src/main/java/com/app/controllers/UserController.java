@@ -49,7 +49,7 @@ public class UserController {
 
 	@PostMapping("/login")
 	public UserDTO loginCustomer(@RequestBody User user) {
-		System.out.println("in loginCustomer " + getClass().getName());
+		System.out.println("in loginCustomer " + user);
 		return userService.loginUser(user.getUserEmail(), user.getUserPassword());
 	}
 
