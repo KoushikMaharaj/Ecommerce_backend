@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.customException.ResourceNotFoundException;
 import com.app.dao.CartRepository;
 import com.app.pojos.Cart;
 import com.app.pojos.Product;
@@ -43,7 +44,7 @@ public class ImplCartService implements ICartService {
 
 	@Override
 	public Cart getById(int id) {
-		return cartRepo.findById(id).orElseThrow(() -> new RuntimeException("Cart Not Found"));
+		return cartRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cart Not Found"));
 	}
 
 	@Override
@@ -55,7 +56,7 @@ public class ImplCartService implements ICartService {
 	@Override
 	public Cart removeProductFromCart(int cartId, int pid) {
 		Product product = prodService.getProductDetail(pid);
-		Cart cart = cartRepo.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
+		Cart cart = cartRepo.findById(cartId).orElseThrow(() -> new ResourceNotFoundException("Cart not found"));
 		cart.getProducts().remove(product);
 		return cartRepo.save(cart);
 	}

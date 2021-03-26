@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.customException.ResourceNotFoundException;
 import com.app.dao.UserRepository;
 import com.app.dto.UserDTO;
 import com.app.pojos.Role;
@@ -35,7 +36,7 @@ public class ImplUserService implements IUserService {
 	@Override
 	public UserDTO loginUser(String email, String password) {
 		User validUser = userRepo.findByUserEmailAndUserPassword(email, password)
-				.orElseThrow(() -> new RuntimeException("User not Found"));
+				.orElseThrow(() -> new ResourceNotFoundException("User not Found"));
 		UserDTO dto = new UserDTO();
 		BeanUtils.copyProperties(validUser, dto, "userPassword");
 		System.out.println("in loginUser " + dto);
@@ -44,7 +45,7 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public User getUserById(Integer id) {
-		return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not Found"));
+		return userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not Found"));
 	}
 
 	@Override
@@ -55,7 +56,7 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public UserDTO updateUser(UserDTO cust) {
-		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new RuntimeException("User not Found"));
+		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new ResourceNotFoundException("User not Found"));
 		customer.setUserName(cust.getUserName());
 		customer.setUserEmail(cust.getUserEmail());
 		customer.setUserContact(cust.getUserContact());
@@ -67,7 +68,7 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public UserDTO updateUserAddress(UserDTO cust) {
-		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new RuntimeException("User not Found"));
+		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new ResourceNotFoundException("User not Found"));
 		customer.setUserAddr(cust.getUserAddr());
 		User persistentCust = userRepo.save(customer);
 		UserDTO dto = new UserDTO();
@@ -77,7 +78,7 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public UserDTO updateUserPassword(UserDTO cust) {
-		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new RuntimeException("User not Found"));
+		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new ResourceNotFoundException("User not Found"));
 		customer.setUserPassword(cust.getUserPassword());
 		User persistentCust = userRepo.save(customer);
 		UserDTO dto = new UserDTO();

@@ -1,11 +1,9 @@
 package com.app.service;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -86,7 +84,7 @@ public class ImplOrderService implements IOrderService {
 
 	@Override
 	public Order getOrderByOrderId(int orderId) {
-		return orderRepo.findById(orderId).orElseThrow(() -> new RuntimeException("Cart not found"));
+		return orderRepo.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
 	}
 
 }
