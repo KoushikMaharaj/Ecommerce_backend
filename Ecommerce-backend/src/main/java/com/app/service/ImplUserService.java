@@ -86,4 +86,12 @@ public class ImplUserService implements IUserService {
 		return dto;
 	}
 
+	@Override
+	public UserDTO getUserByEmail(String email) {
+		User customer = userRepo.findByUserEmail(email).orElseThrow(()->new ResourceNotFoundException("User Not Found"));
+		UserDTO dto = new UserDTO();
+		BeanUtils.copyProperties(customer, dto, "userPassword");
+		return dto;
+	}
+
 }

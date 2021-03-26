@@ -22,4 +22,6 @@ public interface IUserService {
 	UserDTO updateUserAddress(UserDTO cust);
 	
 	UserDTO updateUserPassword(UserDTO cust);
+	
+	UserDTO getUserByEmail(String email);
 }

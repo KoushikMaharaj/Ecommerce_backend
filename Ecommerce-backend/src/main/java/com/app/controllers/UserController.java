@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,16 @@ public class UserController {
 
 	public UserController() {
 		System.out.println("in ctor of " + getClass().getName());
+	}
+
+	@PostMapping("/{email}")
+	public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
+		System.out.println("in getUserByEmail " + email);
+		try {
+			return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.OK);
+		} catch (RuntimeException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PostMapping("/register")
@@ -51,7 +62,7 @@ public class UserController {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@PutMapping("/update/address")
 	public ResponseEntity<?> updateUserAddress(@RequestBody UserDTO user) {
 		System.out.println("in updateUser " + user);
@@ -61,7 +72,7 @@ public class UserController {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@PutMapping("/update/password")
 	public ResponseEntity<?> updateUserPassword(@RequestBody UserDTO user) {
 		System.out.println("in updateUser " + user);
