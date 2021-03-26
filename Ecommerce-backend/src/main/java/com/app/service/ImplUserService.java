@@ -22,7 +22,7 @@ public class ImplUserService implements IUserService {
 	public UserDTO addUser(User user) {
 		User persistentCust = userRepo.save(user);
 		UserDTO dto = new UserDTO();
-		BeanUtils.copyProperties(persistentCust, dto);
+		BeanUtils.copyProperties(persistentCust, dto, "userPassword");
 		System.out.println("in addCustomer " + dto);
 		return dto;
 	}
@@ -37,7 +37,7 @@ public class ImplUserService implements IUserService {
 		User validUser = userRepo.findByUserEmailAndUserPassword(email, password)
 				.orElseThrow(() -> new RuntimeException("User not Found"));
 		UserDTO dto = new UserDTO();
-		BeanUtils.copyProperties(validUser, dto);
+		BeanUtils.copyProperties(validUser, dto, "userPassword");
 		System.out.println("in loginUser " + dto);
 		return dto;
 	}
@@ -51,6 +51,18 @@ public class ImplUserService implements IUserService {
 	public void deleteAdmin(Integer id) {
 		userRepo.deleteById(id);
 
+	}
+
+	@Override
+	public UserDTO updateUser(UserDTO cust) {
+		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new RuntimeException("User not Found"));
+		customer.setUserName(cust.getUserName());
+		customer.setUserEmail(cust.getUserEmail());
+		customer.setUserContact(cust.getUserContact());
+		User persistentCust = userRepo.save(customer);
+		UserDTO dto = new UserDTO();
+		BeanUtils.copyProperties(persistentCust, dto, "userPassword");
+		return dto;
 	}
 
 }

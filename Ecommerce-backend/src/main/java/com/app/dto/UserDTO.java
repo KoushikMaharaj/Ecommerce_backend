@@ -8,6 +8,7 @@ public class UserDTO {
 	private Integer id;
 	private String userName;
 	private String userEmail;
+	private String userPassword;
 	private Address userAddr;
 	private String userContact;
 	private Role role;
@@ -16,11 +17,13 @@ public class UserDTO {
 		System.out.println("in ctor of " + getClass().getName());
 	}
 
-	public UserDTO(Integer id, String userName, String userEmail, Address userAddr, String userContact, Role role) {
+	public UserDTO(Integer id, String userName, String userEmail, String userPassword, Address userAddr,
+			String userContact, Role role) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.userEmail = userEmail;
+		this.userPassword = userPassword;
 		this.userAddr = userAddr;
 		this.userContact = userContact;
 		this.role = role;
@@ -50,6 +53,14 @@ public class UserDTO {
 		this.userEmail = userEmail;
 	}
 
+	public String getUserPassword() {
+		return userPassword;
+	}
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+
 	public Address getUserAddr() {
 		return userAddr;
 	}
@@ -76,8 +87,8 @@ public class UserDTO {
 
 	@Override
 	public String toString() {
-		return "UserDto [id=" + id + ", userName=" + userName + ", userEmail=" + userEmail + ", userAddr=" + userAddr
-				+ ", userContact=" + userContact + ", role=" + role + "]";
+		return "UserDTO [id=" + id + ", userName=" + userName + ", userEmail=" + userEmail + ", userPassword="
+				+ userPassword + ", userAddr=" + userAddr + ", userContact=" + userContact + ", role=" + role + "]";
 	}
 
 }

@@ -43,10 +43,10 @@ public class UserController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<?> updateUser(@RequestBody User user) {
+	public ResponseEntity<?> updateUser(@RequestBody UserDTO user) {
 		System.out.println("in updateUser " + user);
 		try {
-			return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
+			return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
 		} catch (RuntimeException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

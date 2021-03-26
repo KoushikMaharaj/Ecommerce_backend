@@ -16,4 +16,6 @@ public interface IUserService {
 	User getUserById(Integer id);
 
 	void deleteAdmin(Integer id);
+	
+	UserDTO updateUser(UserDTO cust);
 }
