@@ -20,4 +20,6 @@ public interface IUserService {
 	UserDTO updateUser(UserDTO cust);
 
 	UserDTO updateUserAddress(UserDTO cust);
+	
+	UserDTO updateUserPassword(UserDTO cust);
 }
