@@ -55,11 +55,15 @@ public class OrderController {
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(placeOrder.getCustomer().getUserEmail());
 		mail.setSubject("Orders");
+		text.append("Hello " + placeOrder.getCustomer().getUserName() + ",\n");
+		text.append("We recieved your order,this order will be deliverd within week on adderss\n "
+				+ placeOrder.getOrderAddress() + "\n order details are as follow\n");
 		placeOrder.getDetails().forEach((detail) -> {
 			text.append("Product name: " + detail.getProduct().getProdName());
 			text.append(", Quantity: " + detail.getQty());
 			text.append(", Total price : " + detail.getTotalPrice() + "\n");
 		});
+		text.append("Thanks for choosing Computer Shopee\n");
 		String message = text.toString();
 		mail.setText(message);
 		mailSender.send(mail);
@@ -72,16 +76,20 @@ public class OrderController {
 
 	@PostMapping("/cartorder/{cartId}")
 	public ResponseEntity<?> placeCartOrder(@PathVariable int cartId, Order order) {
-		Order placeOrder=orderService.placeOrderFromCart(cartId, order);
+		Order placeOrder = orderService.placeOrderFromCart(cartId, order);
 		StringBuilder text = new StringBuilder();
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(placeOrder.getCustomer().getUserEmail());
 		mail.setSubject("Orders");
+		text.append("Hello " + placeOrder.getCustomer().getUserName() + ",\n");
+		text.append("We recieved your order,this order will be deliverd within week on adderss\n "
+				+ placeOrder.getOrderAddress() + "\n order details are as follow\n");
 		placeOrder.getDetails().forEach((detail) -> {
 			text.append("Product name: " + detail.getProduct().getProdName());
 			text.append(", Quantity: " + detail.getQty());
 			text.append(", Total price : " + detail.getTotalPrice() + "\n");
 		});
+		text.append("Thanks for choosing Computer Shopee\n");
 		String message = text.toString();
 		mail.setText(message);
 		mailSender.send(mail);

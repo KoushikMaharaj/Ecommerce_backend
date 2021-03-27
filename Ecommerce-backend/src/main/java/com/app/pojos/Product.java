@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Table(name = "products")
 @CrossOrigin
 public class Product extends BaseEntity {
-	@Column(name = "product_name", length = 50)
+	@Column(name = "product_name", length = 50, unique = true)
 	private String prodName;
 
 	@Column(name = "product_description")
