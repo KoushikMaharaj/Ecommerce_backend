@@ -42,13 +42,9 @@ public class ProductController {
 
 	@PostMapping
 	public ResponseEntity<?> addProduct(@RequestParam MultipartFile prodImage, @RequestParam String product) {
-		System.out.println("product " + product + " image " + prodImage.getOriginalFilename());
-
 		try {
 			Product prod = new ObjectMapper().readValue(product, Product.class);
-			System.out.println("without image " + prod);
 			byte[] image = prodImage.getBytes();
-			System.out.println(image);
 			prod.setProdImage(image);
 			prod.setImageFileName(prodImage.getOriginalFilename());
 			return new ResponseEntity<>(prodService.addProduct(prod), HttpStatus.OK);
@@ -66,7 +62,6 @@ public class ProductController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getProductDetail(@PathVariable Integer id) {
-		System.out.println("in getProductDetail " + id);
 		try {
 			return new ResponseEntity<>(prodService.getProductDetail(id), HttpStatus.OK);
 		} catch (Exception e) {
@@ -77,9 +72,7 @@ public class ProductController {
 
 	@GetMapping("/images/{id}")
 	public ResponseEntity<byte[]> getFile(@PathVariable Integer id) {
-		System.out.println("in get file " + id);
 		Product p = prodService.getProductDetail(id);
-
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + p.getImageFileName() + "\"")
 				.body(p.getProdImage());
@@ -111,11 +104,8 @@ public class ProductController {
 
 	@PutMapping("/update")
 	public ResponseEntity<?> updateProduct(@RequestBody ProductUpdateRequestDTO prodDTO) {
-		System.out.println("in updateProduct: " + prodDTO);
-
 		try {
 			return new ResponseEntity<>(prodService.updateProduct(prodDTO), HttpStatus.OK);
-
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

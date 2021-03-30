@@ -24,7 +24,6 @@ public class ImplUserService implements IUserService {
 		User persistentCust = userRepo.save(user);
 		UserDTO dto = new UserDTO();
 		BeanUtils.copyProperties(persistentCust, dto, "userPassword");
-		System.out.println("in addCustomer " + dto);
 		return dto;
 	}
 
@@ -39,7 +38,6 @@ public class ImplUserService implements IUserService {
 				.orElseThrow(() -> new ResourceNotFoundException("User not Found"));
 		UserDTO dto = new UserDTO();
 		BeanUtils.copyProperties(validUser, dto, "userPassword");
-		System.out.println("in loginUser " + dto);
 		return dto;
 	}
 
@@ -56,7 +54,8 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public UserDTO updateUser(UserDTO cust) {
-		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new ResourceNotFoundException("User not Found"));
+		User customer = userRepo.findById(cust.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("User not Found"));
 		customer.setUserName(cust.getUserName());
 		customer.setUserEmail(cust.getUserEmail());
 		customer.setUserContact(cust.getUserContact());
@@ -68,7 +67,8 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public UserDTO updateUserAddress(UserDTO cust) {
-		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new ResourceNotFoundException("User not Found"));
+		User customer = userRepo.findById(cust.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("User not Found"));
 		customer.setUserAddr(cust.getUserAddr());
 		User persistentCust = userRepo.save(customer);
 		UserDTO dto = new UserDTO();
@@ -78,7 +78,8 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public UserDTO updateUserPassword(UserDTO cust) {
-		User customer = userRepo.findById(cust.getId()).orElseThrow(() -> new ResourceNotFoundException("User not Found"));
+		User customer = userRepo.findById(cust.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("User not Found"));
 		customer.setUserPassword(cust.getUserPassword());
 		User persistentCust = userRepo.save(customer);
 		UserDTO dto = new UserDTO();
@@ -88,7 +89,8 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public UserDTO getUserByEmail(String email) {
-		User customer = userRepo.findByUserEmail(email).orElseThrow(()->new ResourceNotFoundException("User Not Found"));
+		User customer = userRepo.findByUserEmail(email)
+				.orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
 		UserDTO dto = new UserDTO();
 		BeanUtils.copyProperties(customer, dto, "userPassword");
 		return dto;

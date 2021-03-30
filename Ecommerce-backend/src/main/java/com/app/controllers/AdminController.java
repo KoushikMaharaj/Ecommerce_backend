@@ -32,7 +32,6 @@ public class AdminController {
 
 	@DeleteMapping("/{id}")
 	public void deleteAdmin(@PathVariable Integer id) {
-		System.out.println("in deleteAdmin " + id);
 		userService.deleteAdmin(id);
 	}
 }

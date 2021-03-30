@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -41,19 +40,13 @@ public class Category extends BaseEntity {
 		return "Category [Id=" + getId() + ", ctgName=" + ctgName + "]";
 	}
 
-	// helper method to map subctg
 	public void addSubCtg(SubCategory subCtg) {
-		// ctg--->subctg
 		subCategories.add(subCtg);
-		// subctg--->ctg
 		subCtg.setCtg(this);
 	}
 
-	// helper method to remove subctg
 	public void removeSubCtg(SubCategory subCtg) {
-		// ctg-X-->subctg
 		subCategories.remove(subCtg);
-		// subctg-X-->ctg
 		subCtg.setCtg(null);
 	}
 

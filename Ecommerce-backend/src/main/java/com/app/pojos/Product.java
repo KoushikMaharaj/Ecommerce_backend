@@ -38,18 +38,6 @@ public class Product extends BaseEntity {
 	@JoinColumn(name = "subcategory_id", nullable = false)
 	private SubCategory subCtg;
 
-	/*
-	 * @JsonIgnore
-	 * 
-	 * @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL) private
-	 * List<Cart> carts = new ArrayList<>();
-	 */
-
-	/*
-	 * @OneToMany(mappedBy = "product") private List<OrderDetail> details = new
-	 * ArrayList<>();
-	 */
-
 	public Product() {
 		System.out.println("in ctor of " + getClass().getName());
 	}
@@ -60,7 +48,6 @@ public class Product extends BaseEntity {
 		this.prodName = prodName;
 		this.prodDesc = prodDesc;
 		this.prodWarrenty = prodWarrenty;
-
 		this.numberInStock = numberInStock;
 		this.price = price;
 		this.prodImage = prodImage;
@@ -113,18 +100,6 @@ public class Product extends BaseEntity {
 	public void setProdImage(byte[] prodImage) {
 		this.prodImage = prodImage;
 	}
-
-	/*
-	 * @JsonIgnore public List<Cart> getCarts() { return carts; }
-	 * 
-	 * @JsonProperty public void setCarts(List<Cart> carts) { this.carts = carts; }
-	 */
-
-	/*
-	 * public List<OrderDetail> getDetails() { return details; }
-	 * 
-	 * public void setDetails(List<OrderDetail> details) { this.details = details; }
-	 */
 
 	public String getImageFileName() {
 		return imageFileName;

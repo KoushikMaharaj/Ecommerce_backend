@@ -29,7 +29,6 @@ public class CategoryController {
 
 	@PostMapping
 	public ResponseEntity<?> addCategory(@RequestBody Category category) {
-		System.out.println("in addCategory " + category);
 		try {
 			return new ResponseEntity<>(ctgService.addCategory(category), HttpStatus.OK);
 		} catch (RuntimeException e) {

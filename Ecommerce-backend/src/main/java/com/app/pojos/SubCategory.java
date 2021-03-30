@@ -26,7 +26,7 @@ public class SubCategory extends BaseEntity {
 	private Category ctg;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "subCtg", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "subCtg", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Product> products = new ArrayList<>();
 
 	public SubCategory() {
@@ -53,12 +53,12 @@ public class SubCategory extends BaseEntity {
 	public void setCtg(Category ctg) {
 		this.ctg = ctg;
 	}
-	
+
 	@JsonIgnore
 	public List<Product> getProducts() {
 		return products;
 	}
-	
+
 	@JsonProperty
 	public void setProducts(List<Product> products) {
 		this.products = products;
@@ -69,19 +69,13 @@ public class SubCategory extends BaseEntity {
 		return "SubCategory [Id=" + getId() + ", subCtgName=" + subCtgName + "]";
 	}
 
-	// helper method to link products
 	public void addProduct(Product p) {
-		// subctg---->product
 		products.add(p);
-		// product---->subctg
 		p.setSubCtg(this);
 	}
 
-	// helper method to unlink products
 	public void removeProduct(Product p) {
-		// subctg-X--->product
 		products.remove(p);
-		// product-X--->subctg
 		p.setSubCtg(null);
 	}
 

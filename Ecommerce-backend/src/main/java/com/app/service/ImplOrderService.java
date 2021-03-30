@@ -31,17 +31,14 @@ public class ImplOrderService implements IOrderService {
 
 	@Override
 	public Order placeOrder(int cid, int pid, int qty, Order order) {
-		System.out.println("in placeOrder cid: " + cid + " pid: " + pid + " qty: " + qty);
 		User customer = userService.getUserById(cid);
 		Product prod = prodService.getProductDetail(pid);
-		System.out.println("product: " + prod.getProdName());
 		OrderDetail detail = new OrderDetail(qty, prod.getPrice());
 		detail.setProduct(prod);
 		order.getDetails().add(detail);
 		order.setOrderAddress(customer.getUserAddr());
 		customer.linkOrders(order);
 		prodService.updateProduct(qty, pid);
-		System.out.println(order);
 		return orderRepo.save(order);
 	}
 
@@ -60,7 +57,6 @@ public class ImplOrderService implements IOrderService {
 
 	@Override
 	public Order placeOrderFromCart(int cartId, Order order) {
-		System.out.println("in placeCartOrder cart id " + cartId + " order : " + order);
 		Cart cart = cartService.getById(cartId);
 		User customer = cart.getCustCart();
 		List<Product> products = cart.getProducts();

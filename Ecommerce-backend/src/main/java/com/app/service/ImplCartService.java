@@ -23,9 +23,9 @@ public class ImplCartService implements ICartService {
 	@Override
 	public Cart addProductToCart(int cid, int pid) {
 		User user = userService.getUserById(cid);
-		System.out.println(user);
+
 		Product prod = prodService.getProductDetail(pid);
-		System.out.println(prod);
+
 		Cart crt = user.getCart();
 		if (crt == null) {
 			Cart cart = new Cart();
@@ -49,7 +49,6 @@ public class ImplCartService implements ICartService {
 
 	@Override
 	public void deleteCart(Cart c) {
-		System.out.println("in delete " + c);
 		cartRepo.delete(c);
 	}
 

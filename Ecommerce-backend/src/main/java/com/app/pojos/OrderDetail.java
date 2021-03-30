@@ -57,7 +57,6 @@ public class OrderDetail {
 	}
 
 	public void linkProduct(Product p) {
-		// detail--->product
 		product = p;
 	}
 

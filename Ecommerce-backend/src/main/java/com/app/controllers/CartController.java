@@ -38,7 +38,6 @@ public class CartController {
 	@GetMapping("/{cid}")
 	public ResponseEntity<?> showCart(@PathVariable int cid) {
 		User user = userService.getUserById(cid);
-		System.out.println("showCart " + user.getCart().getId());
 		try {
 			return new ResponseEntity<>(cartService.showCart(user), HttpStatus.OK);
 		} catch (RuntimeException e) {
@@ -48,7 +47,6 @@ public class CartController {
 
 	@GetMapping("/removeproduct/{cartId}/{pid}")
 	public ResponseEntity<?> removeProductFromCart(@PathVariable int cartId, @PathVariable int pid) {
-		System.out.println("in removeProductFromCart cartID: " + cartId + " pid: " + pid);
 		try {
 			return new ResponseEntity<>(cartService.removeProductFromCart(cartId, pid), HttpStatus.OK);
 		} catch (RuntimeException e) {

@@ -3,7 +3,6 @@ package com.app.pojos;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -52,12 +51,12 @@ public class Cart extends BaseEntity {
 
 	public void addProduct(Product prod) {
 		products.add(prod);
-		// prod.getCarts().add(this);
+
 	}
 
 	public void removeProduct(Product prod) {
 		products.remove(prod);
-		// prod.getCarts().remove(this);
+
 	}
 
 }

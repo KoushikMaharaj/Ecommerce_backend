@@ -29,7 +29,6 @@ public class UserController {
 
 	@PostMapping("/{email}")
 	public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
-		System.out.println("in getUserByEmail " + email);
 		try {
 			return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.OK);
 		} catch (RuntimeException e) {
@@ -39,7 +38,6 @@ public class UserController {
 
 	@PostMapping("/register")
 	public ResponseEntity<?> addCustomer(@RequestBody User user) {
-		System.out.println("in addCustomer " + user);
 		try {
 			return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
 		} catch (RuntimeException e) {
@@ -49,13 +47,11 @@ public class UserController {
 
 	@PostMapping("/login")
 	public UserDTO loginCustomer(@RequestBody User user) {
-		System.out.println("in loginCustomer " + user);
 		return userService.loginUser(user.getUserEmail(), user.getUserPassword());
 	}
 
 	@PutMapping("/update")
 	public ResponseEntity<?> updateUser(@RequestBody UserDTO user) {
-		System.out.println("in updateUser " + user);
 		try {
 			return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
 		} catch (RuntimeException e) {
@@ -65,7 +61,6 @@ public class UserController {
 
 	@PutMapping("/update/address")
 	public ResponseEntity<?> updateUserAddress(@RequestBody UserDTO user) {
-		System.out.println("in updateUser " + user);
 		try {
 			return new ResponseEntity<>(userService.updateUserAddress(user), HttpStatus.OK);
 		} catch (RuntimeException e) {
@@ -75,7 +70,6 @@ public class UserController {
 
 	@PutMapping("/update/password")
 	public ResponseEntity<?> updateUserPassword(@RequestBody UserDTO user) {
-		System.out.println("in updateUser " + user);
 		try {
 			return new ResponseEntity<>(userService.updateUserPassword(user), HttpStatus.OK);
 		} catch (RuntimeException e) {

@@ -41,11 +41,6 @@ public class User extends BaseEntity {
 	@JsonIgnore
 	@OneToOne(mappedBy = "custCart", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Cart cart;
-	/*
-	 * @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval =
-	 * true, fetch = FetchType.EAGER) private List<Order> orders = new
-	 * ArrayList<>();
-	 */
 
 	public User() {
 		System.out.println("in ctor of " + getClass().getName());
@@ -120,47 +115,28 @@ public class User extends BaseEntity {
 		this.cart = cart;
 	}
 
-	/*
-	 * public List<Order> getOrders() { return orders; }
-	 * 
-	 * public void setOrders(List<Order> orders) { this.orders = orders; }
-	 */
-
 	@Override
 	public String toString() {
 		return "User [Id=" + getId() + ", userName=" + userName + ", userEmail=" + userEmail + ", userAddr=" + userAddr
 				+ ", userContact=" + userContact + ", role=" + role + "]";
 	}
 
-	// helper method to link cart
 	public void addCart(Cart c) {
-		// user---->cart
 		cart = c;
-		// cart---->user
 		c.setCustCart(this);
 	}
 
-	// helper method to unlink cart
 	public void removeCart(Cart c) {
-		// customer-X--->cart
 		cart = null;
-		// cart-X--->cust
 		c.setCustCart(null);
 	}
 
-	// helper method to link orders
 	public void linkOrders(Order o) {
-		// cust---->orders
-		// orders.add(o);
-		// orders-->cust
 		o.setCustomer(this);
 	}
 
-	// helper method to link orders
 	public void unlinkOrders(Order o) {
-		// cust-X--->orders
-		// orders.remove(o);
-		// orders-X->cust
+
 		o.setCustomer(null);
 	}
 
